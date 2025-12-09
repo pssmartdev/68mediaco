@@ -1,0 +1,75 @@
+:root {
+  /* Colors - Theme: Mint/Deep Slate (Lighter Professional Dark) */
+  --primary: #10b981;
+  /* Emerald 500 - Slightly warmer green */
+  --primary-hover: #059669;
+  /* Emerald 600 */
+  --secondary: #ffffff;
+
+  /* Backgrounds - Softened from Pure Black */
+  --background: #111827;
+  /* Gray 900 - Deep Blue-Gray, less harsh than black */
+  --surface: #1f2937;
+  /* Gray 800 */
+  --surface-hover: #374151;
+  /* Gray 700 */
+
+  --text: #f9fafb;
+  /* Gray 50 */
+  --text-muted: #9ca3af;
+  /* Gray 400 */
+  --border: #374151;
+  /* Gray 700 */
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-text: linear-gradient(to right, #34d399, #10b981);
+  --gradient-surface: linear-gradient(145deg, #1f2937, #111827);
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Spacing */
+  --container-width: 1024px;
+  /* Slightly tighter for App Store feel */
+  --header-height: 4rem;
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: var(--font-sans);
+  margin: 0;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-hover);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

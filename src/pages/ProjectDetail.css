@@ -1,0 +1,366 @@
+.app-store-container {
+    max-width: 800px !important;
+    /* Narrower reading width like App Store */
+    padding-bottom: 4rem;
+}
+
+.detail-nav {
+    padding: 1.5rem 0;
+}
+
+/* App Header */
+.app-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.app-icon {
+    width: 118px;
+    height: 118px;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--surface-hover);
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.app-info {
+    flex: 1;
+    padding-top: 0.5rem;
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+}
+
+.app-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.app-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.get-btn {
+    background: var(--primary);
+    /* Mint/Emerald */
+    color: white;
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    min-width: 80px;
+}
+
+.icon-btn {
+    padding: 0.5rem;
+    color: var(--primary);
+    font-size: 1.25rem;
+    display: flex;
+}
+
+/* Stats Row */
+.stats-scroll {
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    min-width: 100%;
+    padding: 1rem 0;
+}
+
+.stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+}
+
+.border-right {
+    position: relative;
+}
+
+.border-right::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: var(--surface-hover);
+}
+
+.stat-top,
+.stat-bottom {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    /* Gray instad of white for stats often */
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.stat-value.icon-stat {
+    font-size: 0.9rem;
+}
+
+.star-icon {
+    fill: currentColor;
+    font-size: 1rem;
+}
+
+.separator {
+    height: 1px;
+    background: var(--surface-hover);
+    margin: 1.5rem 0;
+}
+
+/* Detail Sections */
+.detail-section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+.version-info {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.section-content {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Preview Scroller */
+.preview-scroller {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin: 0 -1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    scroll-snap-type: x mandatory;
+}
+
+.screenshot {
+    flex-shrink: 0;
+    background: var(--surface-hover);
+    border-radius: 20px;
+    scroll-snap-align: center;
+}
+
+.s-portrait {
+    width: 200px;
+    height: 433px;
+    /* ~19.5:9 ratio */
+}
+
+.s-landscape {
+    width: 400px;
+    height: 225px;
+}
+
+/* Info List */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--surface-hover);
+    font-size: 0.9rem;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: var(--text-muted);
+}
+
+.info-value {
+    color: var(--text);
+}
+
+@media (max-width: 600px) {
+    .app-header {
+        flex-direction: row;
+    }
+
+    .app-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 16px;
+    }
+
+    .stats-row {
+        gap: 1rem;
+    }
+}
+
+/* CSS Mockup for Landscape Dashboard */
+.live-mockup {
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    /* Border to match other screenshots */
+}
+
+.mock-col-left {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mock-col-right {
+    flex: 1;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.mock-balance-label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.mock-balance-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+
+/* Simulated Wave Chart */
+.mock-chart-container {
+    flex: 1;
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.2) 0%, transparent 100%);
+    border-radius: 12px;
+    border-top: 2px solid var(--primary);
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.mock-chart-container::after {
+    content: 'Analytics';
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 0.6rem;
+    color: var(--primary);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Simulated Bar Chart */
+.mock-bars {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 60px;
+    padding-top: 10px;
+}
+
+.mock-bar {
+    width: 8px;
+    background: var(--surface-hover);
+    border-radius: 4px;
+    position: relative;
+}
+
+.mock-bar.active {
+    background: var(--primary);
+}
+
+.mock-text-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--surface-hover);
+}
+
+.mock-text-sm {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+}
+
+/* Additional styles for inline cleanup */
+.screenshot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.description-text p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.description-text p:last-child {
+    margin-bottom: 0;
+}
+
+.mock-text-primary {
+    color: var(--primary);
+}
+
+.mock-bar-custom {
+    height: 40%;
+}
