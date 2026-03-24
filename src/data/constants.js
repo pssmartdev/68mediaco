@@ -26,7 +26,7 @@ export const NAV_ITEMS = [
 export const HERO_CONTENT = {
   title: "Crafting Digital",
   titleHighlight: "Masterpieces",
-  subtitle: "We specialize in high-end mobile experiences. Explore our featured applications available on iOS & Android.",
+  subtitle: "We deliver premium digital experiences across web and mobile platforms. Discover our featured solutions on iOS, Android, and the web.",
   primaryCTA: "View Featured Projects",
   secondaryCTA: "Let's Talk"
 }
