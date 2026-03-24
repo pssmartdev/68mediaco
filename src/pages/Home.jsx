@@ -30,7 +30,7 @@ const Home = () => {
                 <div className="container">
                     <div className="section-header">
                         <h2 className="section-title">Featured Projects</h2>
-                        <p className="section-desc">Selected works from my portfolio.</p>
+                        <p className="section-desc">Selected works from our portfolio.</p>
                     </div>
 
                     <div className="grid project-grid">

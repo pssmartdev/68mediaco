@@ -1,8 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CONTACT_CONTENT } from '../data/constants'
 import './Contact.css'
 
 const Contact = () => {
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+    const [status, setStatus] = useState('idle') // idle | sending | success | error
+
+    const handleChange = (e) => {
+        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setStatus('sending')
+        try {
+            const res = await fetch('https://formsubmit.co/ajax/hello@68mediaco.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            if (res.ok) {
+                setStatus('success')
+                setFormData({ name: '', email: '', message: '' })
+            } else {
+                setStatus('error')
+            }
+        } catch {
+            setStatus('error')
+        }
+    }
+
     return (
         <div className="contact-page section">
             <div className="container">
@@ -15,28 +42,65 @@ const Contact = () => {
                             {CONTACT_CONTENT.methods.map((method, index) => (
                                 <div key={index} className="method">
                                     <h3>{method.label}</h3>
-                                    <p>{method.value}</p>
+                                    {method.href ? (
+                                        <a href={method.href}>{method.value}</a>
+                                    ) : (
+                                        <p>{method.value}</p>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+                    <form className="contact-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>Name</label>
-                            <input type="text" placeholder="Your Name" />
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Your Name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input type="email" placeholder="your@email.com" />
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="your@email.com"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                            />
                         </div>
                         <div className="form-group">
                             <label>Message</label>
-                            <textarea rows="5" placeholder="Tell me about your project..."></textarea>
+                            <textarea
+                                name="message"
+                                rows="5"
+                                placeholder="Tell us about your project..."
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                            ></textarea>
                         </div>
-                        <button type="submit" className="btn btn-primary submit-button">
-                            Send Message
+
+                        <button
+                            type="submit"
+                            className="btn btn-primary submit-button"
+                            disabled={status === 'sending'}
+                        >
+                            {status === 'sending' ? 'Sending...' : 'Send Message'}
                         </button>
+
+                        {status === 'success' && (
+                            <p className="form-feedback success">Message sent! We'll get back to you soon.</p>
+                        )}
+                        {status === 'error' && (
+                            <p className="form-feedback error">Something went wrong. Please try again or email us directly.</p>
+                        )}
                     </form>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { ABOUT_CONTENT } from '../data/constants'
+
 import './About.css'
 
 const About = () => {
@@ -11,7 +12,7 @@ const About = () => {
                     {ABOUT_CONTENT.intro}
                 </p>
 
-                <h2 className="about-section-title">Experience</h2>
+                <h2 className="about-section-title">{ABOUT_CONTENT.experiencesSectionTitle}</h2>
                 <div className="experience-timeline">
                     {ABOUT_CONTENT.experiences.map((exp, index) => (
                         <div key={index} className="experience-item">
