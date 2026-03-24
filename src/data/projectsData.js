@@ -13,11 +13,15 @@ const CATEGORIES = [
 
 const ICON_COLORS = ['10b981', 'f59e0b', '3b82f6', 'ef4444', '8b5cf6', '06b6d4', 'ec4899', '14b8a6']
 
-// Generate images for a project based on its id (deterministic)
-export const getProjectImages = (projectId) => {
+// Generate images for a project — use API images if available, fallback to local assets
+export const getProjectImages = (project) => {
+    if (project.images && project.images.length > 0) {
+        return project.images.map(url => ({ src: url, style: {} }))
+    }
+    // Fallback: local assets with hue rotation
     return Array.from({ length: 4 }).map((_, i) => {
-        const src = BASE_IMAGES[(projectId + i) % BASE_IMAGES.length]
-        const hue = (projectId * 30 + i * 15) % 360
+        const src = BASE_IMAGES[(project.id + i) % BASE_IMAGES.length]
+        const hue = (project.id * 30 + i * 15) % 360
         return { src, style: { filter: `hue-rotate(${hue}deg)` } }
     })
 }

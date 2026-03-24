@@ -19,7 +19,7 @@ const Home = () => {
 
     const projectsWithImages = projects.map(p => ({
         ...p,
-        images: getProjectImages(p.id),
+        images: getProjectImages(p),
     }))
 
     return (

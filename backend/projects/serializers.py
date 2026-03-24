@@ -11,7 +11,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'title', 'category', 'description', 'subtitle',
             'rating', 'rating_count', 'age', 'rank', 'rank_category',
-            'developer', 'size', 'version', 'language', 'updated',
+            'developer', 'size', 'version', 'language', 'updated', 'images',
         ]
 
     def get_updated(self, obj):

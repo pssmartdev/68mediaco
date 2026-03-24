@@ -46,7 +46,7 @@ const ProjectDetail = () => {
         )
     }
 
-    const images = getProjectImages(project.id)
+    const images = getProjectImages(project)
     const icon = getAppIcon(project)
     const description = generateProjectDescription(project)
 

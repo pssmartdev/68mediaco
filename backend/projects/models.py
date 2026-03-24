@@ -15,6 +15,7 @@ class Project(models.Model):
     size = models.CharField(max_length=20, default='')
     version = models.CharField(max_length=20, default='1.0.0')
     language = models.CharField(max_length=100, default='English')
+    images = models.JSONField(default=list, blank=True)
     order = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
