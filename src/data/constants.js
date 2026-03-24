@@ -1,17 +1,17 @@
 // Company/Personal Information
 export const COMPANY_INFO = {
-  name: "DevPortfolio",
+  name: "68 Media Co.",
   tagline: "Showcasing premium mobile applications and digital experiences",
   founder: "Quang Linh",
   location: "Ho Chi Minh City, Vietnam",
-  email: "hello@devportfolio.com"
+  email: "hello@68mediaco.com"
 }
 
 // Social Media Links
 export const SOCIAL_LINKS = {
   github: "https://github.com/yourusername",
   linkedin: "https://linkedin.com/in/yourusername",
-  email: "mailto:hello@devportfolio.com",
+  email: "mailto:hello@68mediaco.com",
   facebook: "https://facebook.com/yourpage"
 }
 

@@ -16,7 +16,7 @@ const Header = () => {
         <header className="header">
             <div className="container header-container">
                 <Link to="/" className="logo" onClick={closeMenu}>
-                    Dev<span>Portfolio</span>
+                    68<span>Media</span>
                 </Link>
 
                 {/* Desktop Nav */}
