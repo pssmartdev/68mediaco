@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { CONTACT_CONTENT } from '../data/constants'
+import { submitContact } from '../services/api'
 import './Contact.css'
 
 const Contact = () => {
@@ -14,17 +15,9 @@ const Contact = () => {
         e.preventDefault()
         setStatus('sending')
         try {
-            const res = await fetch('https://formsubmit.co/ajax/hello@68mediaco.com', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-            if (res.ok) {
-                setStatus('success')
-                setFormData({ name: '', email: '', message: '' })
-            } else {
-                setStatus('error')
-            }
+            await submitContact(formData)
+            setStatus('success')
+            setFormData({ name: '', email: '', message: '' })
         } catch {
             setStatus('error')
         }

@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import AppCard from '../components/AppCard'
-import { generateProjects } from '../data/projectsData'
+import { fetchProjects } from '../services/api'
+import { getProjectImages } from '../data/projectsData'
 import { HERO_CONTENT } from '../data/constants'
 import './Home.css'
 
 const Home = () => {
-    const projects = generateProjects()
+    const [projects, setProjects] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+
+    useEffect(() => {
+        fetchProjects()
+            .then(data => setProjects(data))
+            .catch(() => setError(true))
+            .finally(() => setLoading(false))
+    }, [])
+
+    const projectsWithImages = projects.map(p => ({
+        ...p,
+        images: getProjectImages(p.id),
+    }))
 
     return (
         <div className="home-page">
@@ -33,11 +48,19 @@ const Home = () => {
                         <p className="section-desc">Selected works from our portfolio.</p>
                     </div>
 
-                    <div className="grid project-grid">
-                        {projects.map(project => (
-                            <AppCard key={project.id} {...project} />
-                        ))}
-                    </div>
+                    {loading && (
+                        <div className="loading-state">Loading projects...</div>
+                    )}
+                    {error && (
+                        <div className="error-state">Failed to load projects. Please try again later.</div>
+                    )}
+                    {!loading && !error && (
+                        <div className="grid project-grid">
+                            {projectsWithImages.map(project => (
+                                <AppCard key={project.id} {...project} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
         </div>

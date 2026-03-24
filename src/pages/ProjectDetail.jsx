@@ -1,23 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { FiChevronLeft, FiShare, FiStar } from 'react-icons/fi'
-import { getProjectById, generateProjectDescription, generateAppIcon } from '../data/projectsData'
+import { fetchProject } from '../services/api'
+import { getProjectImages, getAppIcon, generateProjectDescription } from '../data/projectsData'
 import { WHATS_NEW_CONTENT } from '../data/constants'
 import './ProjectDetail.css'
 
 const ProjectDetail = () => {
     const { id } = useParams()
+    const [project, setProject] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [notFound, setNotFound] = useState(false)
 
-    // Scroll to top on mount
     useEffect(() => {
         window.scrollTo(0, 0)
-    }, [])
+        fetchProject(id)
+            .then(data => setProject(data))
+            .catch(() => setNotFound(true))
+            .finally(() => setLoading(false))
+    }, [id])
 
-    // Get project data
-    const project = getProjectById(id)
+    if (loading) {
+        return (
+            <div className="project-detail-page">
+                <div className="container app-store-container">
+                    <div className="detail-nav">
+                        <Link to="/" className="back-link"><FiChevronLeft /> Back</Link>
+                    </div>
+                    <div className="loading-state">Loading...</div>
+                </div>
+            </div>
+        )
+    }
 
-    // Handle project not found
-    if (!project) {
+    if (notFound || !project) {
         return (
             <div className="project-detail-page">
                 <div className="container app-store-container">
@@ -30,8 +46,9 @@ const ProjectDetail = () => {
         )
     }
 
+    const images = getProjectImages(project.id)
+    const icon = getAppIcon(project)
     const description = generateProjectDescription(project)
-    const icon = generateAppIcon(project)
 
     return (
         <div className="project-detail-page">
@@ -61,7 +78,7 @@ const ProjectDetail = () => {
                 <div className="stats-scroll">
                     <div className="stats-row">
                         <div className="stat-item border-right">
-                            <div className="stat-top">{project.ratingCount} RATINGS</div>
+                            <div className="stat-top">{project.rating_count} RATINGS</div>
                             <div className="stat-value">{project.rating} <FiStar className="star-icon" /></div>
                         </div>
                         <div className="stat-item border-right">
@@ -72,7 +89,7 @@ const ProjectDetail = () => {
                         <div className="stat-item border-right">
                             <div className="stat-top">CHART</div>
                             <div className="stat-value">{project.rank}</div>
-                            <div className="stat-bottom">{project.rankCategory}</div>
+                            <div className="stat-bottom">{project.rank_category}</div>
                         </div>
                         <div className="stat-item">
                             <div className="stat-top">DEVELOPER</div>
@@ -107,26 +124,19 @@ const ProjectDetail = () => {
                 <section className="detail-section">
                     <h2>Preview</h2>
                     <div className="preview-scroller">
-                        <div className="screenshot s-portrait">
-                            <img src={project.previews[0]} alt="Preview 1" className="screenshot-image" />
-                        </div>
-                        <div className="screenshot s-portrait">
-                            <img src={project.previews[1]} alt="Preview 2" className="screenshot-image" />
-                        </div>
-                        <div className="screenshot s-portrait">
-                            <img src={project.previews[2]} alt="Preview 3" className="screenshot-image" />
-                        </div>
+                        {images.slice(0, 3).map((img, i) => (
+                            <div key={i} className="screenshot s-portrait">
+                                <img src={img.src} alt={`Preview ${i + 1}`} className="screenshot-image" style={img.style} />
+                            </div>
+                        ))}
                         <div className="screenshot s-landscape">
-                            {/* Live CSS Mockup for Landscape Dashboard */}
                             <div className="live-mockup">
                                 <div className="mock-col-left">
                                     <div className="mock-balance">
                                         <div className="mock-balance-label">Total Balance</div>
                                         <div className="mock-balance-value">$12,450.85</div>
                                     </div>
-                                    <div className="mock-chart-container">
-                                        {/* CSS Gradient Chart */}
-                                    </div>
+                                    <div className="mock-chart-container"></div>
                                 </div>
                                 <div className="mock-col-right">
                                     <div className="mock-text-row">
