@@ -4,14 +4,14 @@ export const COMPANY_INFO = {
   tagline: "Showcasing premium mobile applications and digital experiences",
   founder: "Quang Linh",
   location: "Lot A4-09 Nguyen Sinh Sac Street, Hoa Khanh Ward, Da Nang City, Vietnam",
-  email: "hello@68mediaco.com"
+  email: "contact@68mediaco.com"
 }
 
 // Social Media Links
 export const SOCIAL_LINKS = {
   github: "https://github.com/yourusername",
   linkedin: "https://linkedin.com/in/yourusername",
-  email: "mailto:hello@68mediaco.com",
+  email: "mailto:contact@68mediaco.com",
   facebook: "https://facebook.com/yourpage"
 }
 
