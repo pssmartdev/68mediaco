@@ -42,8 +42,15 @@
 
 .footer-link-with-icon {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
+}
+
+.footer-address {
+    color: var(--text-muted);
+    cursor: default;
+    font-size: 0.85rem;
+    line-height: 1.4;
 }
 
 .copyright {

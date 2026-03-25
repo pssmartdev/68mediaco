@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
+import { FiMail, FiMapPin } from 'react-icons/fi'
 import { COMPANY_INFO, NAV_ITEMS, SOCIAL_LINKS } from '../data/constants'
 import './Footer.css'
 
@@ -25,22 +25,15 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-links">
-                        <h4>Connect</h4>
+                        <h4>Contact</h4>
                         <ul>
                             <li>
-                                <a href={SOCIAL_LINKS.github} className="footer-link-with-icon">
-                                    <FiGithub /> GitHub
-                                </a>
-                            </li>
-                            <li>
-                                <a href={SOCIAL_LINKS.linkedin} className="footer-link-with-icon">
-                                    <FiLinkedin /> LinkedIn
-                                </a>
-                            </li>
-                            <li>
                                 <a href={SOCIAL_LINKS.email} className="footer-link-with-icon">
-                                    <FiMail /> Email
+                                    <FiMail /> {COMPANY_INFO.email}
                                 </a>
+                            </li>
+                            <li className="footer-link-with-icon footer-address">
+                                <FiMapPin /> {COMPANY_INFO.location}
                             </li>
                         </ul>
                     </div>
