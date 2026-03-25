@@ -35,7 +35,7 @@ export const HERO_CONTENT = {
 export const ABOUT_CONTENT = {
   title: "About Us",
   experiencesSectionTitle: "What We Do",
-  intro: "68 Media Company Limited is a mobile app development studio based in Ho Chi Minh City, Vietnam. We are passionate about crafting premium digital products that people love to use — from concept and UI/UX design through to App Store and Google Play launch. Our team combines technical excellence with creative thinking to deliver applications across a wide range of industries.",
+  intro: "68 Media Company Limited is a mobile app development studio based in Hoa Khanh Ward, Da Nang City, Vietnam. We are passionate about crafting premium digital products that people love to use — from concept and UI/UX design through to App Store and Google Play launch. Our team combines technical excellence with creative thinking to deliver applications across a wide range of industries.",
   experiences: [
     {
       title: "Mobile App Development",
