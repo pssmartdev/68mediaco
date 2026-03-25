@@ -1,10 +1,4 @@
-import beautyApp1 from '../assets/beauty_app_1.png'
-import beautyApp2 from '../assets/beauty_app_2.png'
-import previewP1 from '../assets/preview_p1.png'
-import previewP2 from '../assets/preview_p2.png'
-import previewP3 from '../assets/preview_p3.png'
-
-const BASE_IMAGES = [beautyApp1, beautyApp2, previewP1, previewP2, previewP3]
+import { generateMockupImages } from '../utils/mockups'
 
 const CATEGORIES = [
     'Finance', 'Health', 'Social', 'E-Commerce', 'Utility',
@@ -13,17 +7,9 @@ const CATEGORIES = [
 
 const ICON_COLORS = ['10b981', 'f59e0b', '3b82f6', 'ef4444', '8b5cf6', '06b6d4', 'ec4899', '14b8a6']
 
-// Generate images for a project — use API images if available, fallback to local assets
+// Generate images for a project — always use SVG mockups
 export const getProjectImages = (project) => {
-    if (project.images && project.images.length > 0) {
-        return project.images.map(url => ({ src: url, style: {} }))
-    }
-    // Fallback: local assets with hue rotation
-    return Array.from({ length: 4 }).map((_, i) => {
-        const src = BASE_IMAGES[(project.id + i) % BASE_IMAGES.length]
-        const hue = (project.id * 30 + i * 15) % 360
-        return { src, style: { filter: `hue-rotate(${hue}deg)` } }
-    })
+    return generateMockupImages(project).map(src => ({ src, style: {} }))
 }
 
 // Generate app icon URL based on category and title
