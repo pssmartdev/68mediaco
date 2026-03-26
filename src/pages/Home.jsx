@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { Helmet } from 'react-helmet-async'
 import AppCard from '../components/AppCard'
+import SkeletonCard from '../components/SkeletonCard'
 import { fetchProjects } from '../services/api'
 import { getProjectImages } from '../data/projectsData'
-import { HERO_CONTENT } from '../data/constants'
+import { HERO_CONTENT, COMPANY_INFO } from '../data/constants'
 import './Home.css'
 
 const Home = () => {
@@ -17,13 +19,23 @@ const Home = () => {
             .finally(() => setLoading(false))
     }, [])
 
-    const projectsWithImages = projects.map(p => ({
-        ...p,
-        images: getProjectImages(p),
-    }))
+    const projectsWithImages = useMemo(
+        () => projects.map(p => ({ ...p, images: getProjectImages(p) })),
+        [projects]
+    )
+
+    const siteDesc = `${COMPANY_INFO.name} — Premium mobile app development studio. Discover our featured solutions on iOS, Android, and the web.`
 
     return (
         <div className="home-page">
+            <Helmet>
+                <title>{COMPANY_INFO.name} | Premium Mobile Applications</title>
+                <meta name="description" content={siteDesc} />
+                <meta property="og:title" content={`${COMPANY_INFO.name} | Premium Mobile Applications`} />
+                <meta property="og:description" content={siteDesc} />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://68mediaco.com/" />
+            </Helmet>
             <section className="hero-section">
                 <div className="container">
                     <div className="hero-content">
@@ -49,7 +61,11 @@ const Home = () => {
                     </div>
 
                     {loading && (
-                        <div className="loading-state">Loading projects...</div>
+                        <div className="grid project-grid">
+                            {Array.from({ length: 6 }).map((_, i) => (
+                                <SkeletonCard key={i} />
+                            ))}
+                        </div>
                     )}
                     {error && (
                         <div className="error-state">Failed to load projects. Please try again later.</div>

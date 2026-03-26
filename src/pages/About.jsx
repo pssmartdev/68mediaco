@@ -1,11 +1,18 @@
 import React from 'react'
-import { ABOUT_CONTENT } from '../data/constants'
-
+import { Helmet } from 'react-helmet-async'
+import { ABOUT_CONTENT, COMPANY_INFO } from '../data/constants'
 import './About.css'
 
 const About = () => {
     return (
         <div className="section container about-page">
+            <Helmet>
+                <title>About | {COMPANY_INFO.name}</title>
+                <meta name="description" content={ABOUT_CONTENT.intro.slice(0, 155)} />
+                <meta property="og:title" content={`About | ${COMPANY_INFO.name}`} />
+                <meta property="og:description" content={ABOUT_CONTENT.intro.slice(0, 155)} />
+                <meta property="og:url" content="https://68mediaco.com/about" />
+            </Helmet>
             <h1 className="about-title">{ABOUT_CONTENT.title}</h1>
             <div className="about-content">
                 <p className="about-intro">

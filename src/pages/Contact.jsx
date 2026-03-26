@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { CONTACT_CONTENT } from '../data/constants'
+import { Helmet } from 'react-helmet-async'
+import { CONTACT_CONTENT, COMPANY_INFO } from '../data/constants'
 import { submitContact } from '../services/api'
 import './Contact.css'
 
@@ -25,6 +26,13 @@ const Contact = () => {
 
     return (
         <div className="contact-page section">
+            <Helmet>
+                <title>Contact | {COMPANY_INFO.name}</title>
+                <meta name="description" content={CONTACT_CONTENT.subtitle} />
+                <meta property="og:title" content={`Contact | ${COMPANY_INFO.name}`} />
+                <meta property="og:description" content={CONTACT_CONTENT.subtitle} />
+                <meta property="og:url" content="https://68mediaco.com/contact" />
+            </Helmet>
             <div className="container">
                 <div className="contact-wrapper">
                     <div className="contact-info">

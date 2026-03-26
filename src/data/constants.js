@@ -69,12 +69,67 @@ export const CONTACT_CONTENT = {
   ]
 }
 
-// Project Detail Page - What's New Section
-export const WHATS_NEW_CONTENT = {
-  items: [
-    "Improved AI categorization accuracy",
-    "Dark mode refinements",
+// Project Detail Page - What's New Section (per category)
+export const WHATS_NEW_BY_CATEGORY = {
+  Finance: [
+    "Real-time portfolio sync with 50+ exchanges",
+    "Improved AI-powered budget forecasting",
     "Bug fixes and performance improvements"
+  ],
+  Health: [
+    "New HIIT workout library with 200+ exercises",
+    "Apple Watch & Wear OS deep integration",
+    "Nutrition tracking accuracy improvements"
+  ],
+  Social: [
+    "End-to-end encrypted group messaging",
+    "Improved media compression for faster sharing",
+    "Bug fixes and stability improvements"
+  ],
+  'E-Commerce': [
+    "Price drop alerts for saved items",
+    "One-tap checkout with saved payment methods",
+    "Faster product search and filtering"
+  ],
+  Utility: [
+    "Added PDF merge and split tool",
+    "QR scanner now supports batch scanning",
+    "UI redesign for easier tool discovery"
+  ],
+  Education: [
+    "Offline mode for downloaded course content",
+    "Live quiz sessions with real-time leaderboards",
+    "Certificate sharing to LinkedIn added"
+  ],
+  Game: [
+    "5 new puzzle levels added to Classic mode",
+    "Multiplayer matchmaking improvements",
+    "Bug fixes and performance improvements"
+  ],
+  Productivity: [
+    "Pomodoro timer now syncs across devices",
+    "New recurring task templates",
+    "Calendar integration with Google & Outlook"
+  ],
+  Travel: [
+    "Offline map downloads now 40% smaller",
+    "Real-time flight status notifications",
+    "New hidden gems feature for local discoveries"
+  ],
+  Lifestyle: [
+    "Instant booking confirmation with e-receipt",
+    "Browse and filter 500+ new service providers",
+    "Beauty routine tracker improvements"
+  ],
+  Music: [
+    "Hi-Fi lossless streaming now available",
+    "Studio mixer with new reverb and EQ effects",
+    "Smart playlist suggestions improved"
+  ],
+  News: [
+    "Bias detection now covers 200 more sources",
+    "Improved offline reading experience",
+    "Topic follow suggestions based on reading habits"
   ]
 }
 

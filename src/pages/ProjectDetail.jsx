@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { FiChevronLeft, FiShare, FiStar } from 'react-icons/fi'
 import { fetchProject } from '../services/api'
-import { getProjectImages, getAppIcon, generateProjectDescription } from '../data/projectsData'
-import { WHATS_NEW_CONTENT } from '../data/constants'
+import { getProjectImages, getAppIcon } from '../data/projectsData'
+import { WHATS_NEW_BY_CATEGORY, COMPANY_INFO } from '../data/constants'
 import './ProjectDetail.css'
 
 const ProjectDetail = () => {
@@ -48,10 +49,20 @@ const ProjectDetail = () => {
 
     const images = getProjectImages(project)
     const icon = getAppIcon(project)
-    const description = generateProjectDescription(project)
+
+    const whatsNew = WHATS_NEW_BY_CATEGORY[project.category] || WHATS_NEW_BY_CATEGORY['Utility']
+    const pageDesc = `${project.title} — ${project.subtitle}. ${project.description.slice(0, 120)}...`
 
     return (
         <div className="project-detail-page">
+            <Helmet>
+                <title>{project.title} | {COMPANY_INFO.name}</title>
+                <meta name="description" content={pageDesc} />
+                <meta property="og:title" content={`${project.title} | ${COMPANY_INFO.name}`} />
+                <meta property="og:description" content={pageDesc} />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={`https://68mediaco.com/project/${project.id}`} />
+            </Helmet>
             <div className="container app-store-container">
 
                 {/* Navigation */}
@@ -108,10 +119,10 @@ const ProjectDetail = () => {
                     </div>
                     <div className="section-content">
                         <p>
-                            {WHATS_NEW_CONTENT.items.map((item, index) => (
+                            {whatsNew.map((item, index) => (
                                 <React.Fragment key={index}>
                                     - {item}
-                                    {index < WHATS_NEW_CONTENT.items.length - 1 && <br />}
+                                    {index < whatsNew.length - 1 && <br />}
                                 </React.Fragment>
                             ))}
                         </p>
@@ -129,33 +140,11 @@ const ProjectDetail = () => {
                                 <img src={img.src} alt={`Preview ${i + 1}`} className="screenshot-image" style={img.style} />
                             </div>
                         ))}
-                        <div className="screenshot s-landscape">
-                            <div className="live-mockup">
-                                <div className="mock-col-left">
-                                    <div className="mock-balance">
-                                        <div className="mock-balance-label">Total Balance</div>
-                                        <div className="mock-balance-value">$12,450.85</div>
-                                    </div>
-                                    <div className="mock-chart-container"></div>
-                                </div>
-                                <div className="mock-col-right">
-                                    <div className="mock-text-row">
-                                        <span className="mock-text-sm">Monthly Spending</span>
-                                    </div>
-                                    <div className="mock-bars">
-                                        <div className="mock-bar"></div>
-                                        <div className="mock-bar"></div>
-                                        <div className="mock-bar active" style={{ height: '80%' }}></div>
-                                        <div className="mock-bar mock-bar-custom"></div>
-                                        <div className="mock-bar active" style={{ height: '60%' }}></div>
-                                    </div>
-                                    <div className="mock-text-row">
-                                        <span className="mock-text-sm">Recents</span>
-                                        <span className="mock-text-sm mock-text-primary">See All</span>
-                                    </div>
-                                </div>
+                        {images[3] && (
+                            <div className="screenshot s-portrait">
+                                <img src={images[3].src} alt={`Preview 4`} className="screenshot-image" style={images[3].style} />
                             </div>
-                        </div>
+                        )}
                     </div>
                 </section>
 
@@ -164,7 +153,7 @@ const ProjectDetail = () => {
                 {/* Description */}
                 <section className="detail-section">
                     <div className="description-text">
-                        {description.split('\n').map((line, i) => (
+                        {project.description.split('\n').map((line, i) => (
                             <p key={i}>{line}</p>
                         ))}
                     </div>
