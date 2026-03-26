@@ -98,41 +98,292 @@ const phone = (t, content, extraDefs = '') => `
   <rect x="362" y="472" width="76" height="5" rx="2.5" fill="#1e2535"/>
 </svg>`
 
-// ─── Screen 0: Dashboard ──────────────────────────────────────────────────────
-const screen0 = (p, t) => {
+// ─── Screen 0: Dashboard (category-specific) ─────────────────────────────────
+const dashboardContent = (p, t) => {
+  const cat = p.category
   const barVals = [0.42, 0.65, 0.78, 0.52, 0.88, 0.70, 1.0, 0.60, 0.75, 0.55, 0.85, 0.68]
-  return phone(t, `
-    ${statusBar()}
-    <rect y="28" width="244" height="58" fill="#00000035"/>
-    <text x="16" y="56" fill="white" font-size="16" font-weight="800" font-family="system-ui">${p.title}</text>
-    <text x="16" y="74" fill="${t.primary}90" font-size="11" font-family="system-ui">Welcome back!</text>
-    <circle cx="220" cy="55" r="16" fill="${t.primary}20"/>
-    <circle cx="220" cy="50" r="6" fill="${t.primary}50"/>
-    <path d="M208 68 a12 7 0 0 1 24 0" fill="${t.primary}35"/>
 
+  if (cat === 'Finance') return `
     <rect x="12" y="90" width="220" height="90" rx="20" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
-    <text x="28" y="114" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">OVERVIEW</text>
+    <text x="28" y="114" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">TOTAL BALANCE</text>
     <text x="28" y="146" fill="white" font-size="25" font-weight="800" font-family="system-ui">$12,450.85</text>
     <rect x="28" y="155" width="56" height="17" rx="8.5" fill="${t.primary}28"/>
     <text x="56" y="167" fill="${t.primary}" font-size="10" font-weight="600" text-anchor="middle" font-family="system-ui">+8.2%</text>
-
-    <text x="16" y="205" fill="white" font-size="12" font-weight="700" font-family="system-ui">Activity</text>
+    <text x="16" y="205" fill="white" font-size="12" font-weight="700" font-family="system-ui">Spending</text>
     <text x="185" y="205" fill="${t.primary}70" font-size="10" font-family="system-ui">This week</text>
     ${bars(14, 215, barVals, t.primary, 12, 46)}
-
-    <text x="16" y="290" fill="white" font-size="12" font-weight="700" font-family="system-ui">Recent</text>
+    <text x="16" y="290" fill="white" font-size="12" font-weight="700" font-family="system-ui">Recent Transactions</text>
     <text x="192" y="290" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
-    ${[['Task #001','Completed','+$240'],['Task #002','In Progress','+$185'],['Task #003','Pending','+$320']].map((r,i)=>`
+    ${[['Grocery Store','Food & Drink','-$42.50'],['Netflix','Subscription','-$15.99'],['Salary','Income','+$3,200']].map((r,i)=>`
       <rect x="12" y="${298+i*50}" width="220" height="42" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
       <rect x="20" y="${308+i*50}" width="24" height="24" rx="8" fill="${t.primary}22"/>
-      <text x="32" y="${324+i*50}" fill="${t.primary}" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">${i+1}</text>
+      <text x="32" y="${324+i*50}" fill="${t.primary}" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">$</text>
       <text x="54" y="${315+i*50}" fill="white" font-size="12" font-weight="500" font-family="system-ui">${r[0]}</text>
       <text x="54" y="${330+i*50}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
       <text x="222" y="${323+i*50}" fill="${t.primary}" font-size="12" font-weight="600" text-anchor="end" font-family="system-ui">${r[2]}</text>
     `).join('')}
-    ${bottomNav(t.primary)}
-  `)
+  `
+
+  if (cat === 'Health') return `
+    ${[['Steps','8,432','👟'],['Kcal','342','🔥'],['BPM','72','❤️']].map((s,i)=>`
+      <rect x="${12+i*78}" y="90" width="70" height="66" rx="16" fill="${t.primary}12" stroke="${t.primary}20" stroke-width="1"/>
+      <text x="${47+i*78}" y="118" fill="${t.primary}80" font-size="18" text-anchor="middle" font-family="system-ui">${s[2]}</text>
+      <text x="${47+i*78}" y="138" fill="white" font-size="13" font-weight="700" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="151" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[0]}</text>
+    `).join('')}
+    <text x="16" y="182" fill="white" font-size="12" font-weight="700" font-family="system-ui">Weekly Activity</text>
+    <text x="185" y="182" fill="${t.primary}70" font-size="10" font-family="system-ui">7 days</text>
+    ${bars(14, 192, barVals, t.primary, 12, 46)}
+    <text x="16" y="268" fill="white" font-size="12" font-weight="700" font-family="system-ui">Today's Workouts</text>
+    <text x="192" y="268" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
+    ${[['Morning Run','5.2 km • 32 min','540 kcal'],['Push-ups','3 × 20 reps','120 kcal'],['Yoga','15 min stretch','60 kcal']].map((r,i)=>`
+      <rect x="12" y="${276+i*50}" width="220" height="42" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <rect x="20" y="${286+i*50}" width="24" height="24" rx="8" fill="${t.primary}22"/>
+      <text x="32" y="${302+i*50}" fill="${t.primary}" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">▶</text>
+      <text x="54" y="${293+i*50}" fill="white" font-size="12" font-weight="500" font-family="system-ui">${r[0]}</text>
+      <text x="54" y="${308+i*50}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${301+i*50}" fill="${t.primary}" font-size="11" font-weight="600" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Social') return `
+    ${[['Friends','128','online'],['Posts','47','today'],['Messages','12','unread']].map((s,i)=>`
+      <rect x="${12+i*78}" y="90" width="70" height="66" rx="16" fill="${t.primary}12" stroke="${t.primary}20" stroke-width="1"/>
+      <text x="${47+i*78}" y="130" fill="white" font-size="18" font-weight="800" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="148" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[0]}</text>
+    `).join('')}
+    <text x="16" y="182" fill="white" font-size="12" font-weight="700" font-family="system-ui">Activity</text>
+    <text x="185" y="182" fill="${t.primary}70" font-size="10" font-family="system-ui">This week</text>
+    ${bars(14, 192, barVals, t.primary, 12, 46)}
+    <text x="16" y="268" fill="white" font-size="12" font-weight="700" font-family="system-ui">Recent Messages</text>
+    <text x="192" y="268" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
+    ${[['Alex J.','Hey, are you free tonight?','2m'],['Sara K.','The meeting went great!','15m'],['Team Group','New update is live 🚀','1h']].map((r,i)=>`
+      <rect x="12" y="${276+i*50}" width="220" height="42" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <circle cx="32" cy="${297+i*50}" r="12" fill="${t.primary}30"/>
+      <text x="32" y="${301+i*50}" fill="white" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">${r[0][0]}</text>
+      <text x="54" y="${293+i*50}" fill="white" font-size="12" font-weight="500" font-family="system-ui">${r[0]}</text>
+      <text x="54" y="${308+i*50}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${293+i*50}" fill="white" opacity="0.3" font-size="9" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'E-Commerce') return `
+    <rect x="12" y="90" width="220" height="70" rx="18" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <text x="28" y="112" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">YOUR CART</text>
+    <text x="28" y="138" fill="white" font-size="22" font-weight="800" font-family="system-ui">3 items · $124.97</text>
+    <rect x="148" y="120" width="72" height="28" rx="14" fill="${t.primary}"/>
+    <text x="184" y="138" fill="white" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">Checkout</text>
+    <text x="16" y="185" fill="white" font-size="12" font-weight="700" font-family="system-ui">Best Deals</text>
+    <text x="185" y="185" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
+    ${[['Wireless Headphones','$49.99','–30%'],['Smart Watch','$89.99','–20%']].map((r,i)=>`
+      <rect x="${12+i*114}" y="193" width="106" height="86" rx="16" fill="${t.primary}0e" stroke="${t.primary}18" stroke-width="1"/>
+      <rect x="${18+i*114}" y="199" width="94" height="52" rx="10" fill="${t.primary}18"/>
+      <rect x="${38+i*114}" y="207" width="54" height="36" rx="8" fill="${t.primary}28"/>
+      <text x="${65+i*114}" y="264" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui">${r[0].split(' ')[0]}</text>
+      <text x="${18+i*114}" y="276" fill="${t.primary}" font-size="11" font-weight="600" font-family="system-ui">${r[1]}</text>
+      <rect x="${82+i*114}" y="267" width="28" height="14" rx="7" fill="${t.primary}30"/>
+      <text x="${96+i*114}" y="278" fill="${t.primary}" font-size="9" font-weight="700" text-anchor="middle" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+    <text x="16" y="300" fill="white" font-size="12" font-weight="700" font-family="system-ui">Recent Orders</text>
+    ${[['Order #4821','Delivered','$42.50'],['Order #4798','Shipped','$89.99'],['Order #4762','Processing','$15.99']].map((r,i)=>`
+      <rect x="12" y="${308+i*46}" width="220" height="38" rx="11" fill="${t.primary}0a" stroke="${t.primary}12" stroke-width="1"/>
+      <rect x="20" y="${316+i*46}" width="22" height="22" rx="7" fill="${t.primary}22"/>
+      <text x="31" y="${331+i*46}" fill="${t.primary}" font-size="10" font-weight="700" text-anchor="middle" font-family="system-ui">#</text>
+      <text x="52" y="${325+i*46}" fill="white" font-size="11" font-weight="500" font-family="system-ui">${r[0]}</text>
+      <text x="52" y="${338+i*46}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${332+i*46}" fill="${t.primary}" font-size="11" font-weight="600" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Utility') return `
+    <text x="16" y="100" fill="white" font-size="12" font-weight="700" font-family="system-ui">Quick Tools</text>
+    ${[['QR','Scan'],['PDF','Convert'],['Calc','Unit'],['Zip','File'],['Clock','Timer'],['Key','Pass']].map((tool,i)=>`
+      <rect x="${12+(i%3)*78}" y="${108+Math.floor(i/3)*86}" width="70" height="76" rx="18" fill="${t.primary}${10+i*4}" stroke="${t.primary}18" stroke-width="1"/>
+      <rect x="${25+(i%3)*78}" y="${120+Math.floor(i/3)*86}" width="44" height="40" rx="12" fill="${t.primary}22"/>
+      <text x="${47+(i%3)*78}" y="${148+Math.floor(i/3)*86}" fill="${t.primary}" font-size="16" font-weight="700" text-anchor="middle" font-family="monospace">${tool[0]}</text>
+      <text x="${47+(i%3)*78}" y="${176+Math.floor(i/3)*86}" fill="white" opacity="0.55" font-size="10" text-anchor="middle" font-family="system-ui">${tool[1]}</text>
+    `).join('')}
+    <text x="16" y="292" fill="white" font-size="12" font-weight="700" font-family="system-ui">Recently Used</text>
+    ${[['QR Scanner','Last used 5m ago'],['PDF Converter','Last used 1h ago'],['Unit Converter','Last used today']].map((r,i)=>`
+      <rect x="12" y="${300+i*46}" width="220" height="38" rx="11" fill="${t.primary}0a" stroke="${t.primary}12" stroke-width="1"/>
+      <rect x="20" y="${308+i*46}" width="22" height="22" rx="7" fill="${t.primary}22"/>
+      <text x="31" y="${323+i*46}" fill="${t.primary}" font-size="10" font-weight="700" text-anchor="middle" font-family="monospace">${r[0].split(' ')[0].slice(0,2)}</text>
+      <text x="52" y="${317+i*46}" fill="white" font-size="11" font-weight="500" font-family="system-ui">${r[0]}</text>
+      <text x="52" y="${330+i*46}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Education') return `
+    <rect x="12" y="90" width="220" height="70" rx="18" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <text x="28" y="112" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">DAILY STREAK</text>
+    <text x="28" y="143" fill="white" font-size="28" font-weight="800" font-family="system-ui">🔥 12 days</text>
+    ${[['Courses','8','enrolled'],['Hours','124','learned'],['Points','3,420','earned']].map((s,i)=>`
+      <rect x="${12+i*78}" y="172" width="70" height="56" rx="14" fill="${t.primary}12" stroke="${t.primary}1e" stroke-width="1"/>
+      <text x="${47+i*78}" y="197" fill="white" font-size="16" font-weight="800" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="212" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[2]}</text>
+    `).join('')}
+    <text x="16" y="250" fill="white" font-size="12" font-weight="700" font-family="system-ui">In Progress</text>
+    <text x="192" y="250" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
+    ${[['React Advanced','68% complete','12 lessons left'],['UI/UX Design','45% complete','20 lessons left'],['Node.js API','22% complete','34 lessons left']].map((r,i)=>`
+      <rect x="12" y="${258+i*52}" width="220" height="44" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <rect x="20" y="${268+i*52}" width="26" height="26" rx="8" fill="${t.primary}22"/>
+      <text x="33" y="${285+i*52}" fill="${t.primary}" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">▶</text>
+      <text x="56" y="${270+i*52}" fill="white" font-size="11" font-weight="600" font-family="system-ui">${r[0]}</text>
+      <rect x="56" y="${275+i*52}" width="110" height="5" rx="2.5" fill="white" opacity="0.1"/>
+      <rect x="56" y="${275+i*52}" width="${parseInt(r[1])*1.1}" height="5" rx="2.5" fill="${t.primary}"/>
+      <text x="56" y="${292+i*52}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${292+i*52}" fill="white" opacity="0.3" font-size="10" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Game') return `
+    <rect x="12" y="90" width="220" height="70" rx="18" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <text x="28" y="112" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">YOUR STATS</text>
+    <text x="28" y="143" fill="white" font-size="26" font-weight="800" font-family="system-ui">Level 24 · 1,240 pts</text>
+    ${[['Wins','142'],['Streak','7'],['Rank','#38']].map((s,i)=>`
+      <rect x="${12+i*78}" y="172" width="70" height="56" rx="14" fill="${t.primary}12" stroke="${t.primary}1e" stroke-width="1"/>
+      <text x="${47+i*78}" y="197" fill="white" font-size="16" font-weight="800" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="212" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[0]}</text>
+    `).join('')}
+    <text x="16" y="250" fill="white" font-size="12" font-weight="700" font-family="system-ui">Daily Challenges</text>
+    ${[['Puzzle Master','Solve 5 puzzles','3/5 done'],['Speed Run','Complete in 60s','Pending'],['Combo King','10 combo streak','Done ✓']].map((r,i)=>`
+      <rect x="12" y="${258+i*52}" width="220" height="44" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <rect x="20" y="${268+i*52}" width="26" height="26" rx="8" fill="${t.primary}22"/>
+      <text x="33" y="${285+i*52}" fill="${t.primary}" font-size="14" font-weight="700" text-anchor="middle" font-family="system-ui">★</text>
+      <text x="56" y="${270+i*52}" fill="white" font-size="11" font-weight="600" font-family="system-ui">${r[0]}</text>
+      <text x="56" y="${284+i*52}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${280+i*52}" fill="${t.primary}" font-size="10" font-weight="600" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Productivity') return `
+    <rect x="12" y="90" width="220" height="70" rx="18" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <text x="28" y="112" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">TODAY'S PROGRESS</text>
+    <text x="28" y="143" fill="white" font-size="26" font-weight="800" font-family="system-ui">5 / 8 tasks done</text>
+    ${[['Focus','2h 14m','today'],['Streak','9 days','active'],['Done','5/8','tasks']].map((s,i)=>`
+      <rect x="${12+i*78}" y="172" width="70" height="56" rx="14" fill="${t.primary}12" stroke="${t.primary}1e" stroke-width="1"/>
+      <text x="${47+i*78}" y="197" fill="white" font-size="13" font-weight="800" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="212" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[0]}</text>
+    `).join('')}
+    <text x="16" y="250" fill="white" font-size="12" font-weight="700" font-family="system-ui">Task List</text>
+    <text x="192" y="250" fill="${t.primary}" font-size="10" font-family="system-ui">+Add</text>
+    ${[['Design new landing page','Design · Due today',true],['Backend API review','Dev · Due 3pm',true],['Weekly team standup','Meeting · 5pm',false],['Write product brief','Marketing · Tomorrow',false]].map((r,i)=>`
+      <rect x="12" y="${258+i*46}" width="220" height="38" rx="11" fill="${t.primary}0a" stroke="${t.primary}12" stroke-width="1"/>
+      <rect x="20" y="${268+i*46}" width="20" height="20" rx="6" fill="${r[2]?t.primary:'transparent'}" stroke="${t.primary}60" stroke-width="1.5"/>
+      ${r[2]?`<text x="30" y="${282+i*46}" fill="white" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">✓</text>`:''}
+      <text x="50" y="${272+i*46}" fill="${r[2]?t.primary+'80':'white'}" font-size="11" font-weight="500" font-family="system-ui">${r[0]}</text>
+      <text x="50" y="${285+i*46}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Travel') return `
+    <rect x="12" y="90" width="220" height="70" rx="18" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <text x="28" y="112" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">NEXT TRIP</text>
+    <text x="28" y="140" fill="white" font-size="22" font-weight="800" font-family="system-ui">🗺 Paris · 12 days</text>
+    ${[['Weather','22°C ☀','Sunny'],['Flight','VN240','On time'],['Hotel','Le Royal','Confirmed']].map((s,i)=>`
+      <rect x="${12+i*78}" y="172" width="70" height="56" rx="14" fill="${t.primary}12" stroke="${t.primary}1e" stroke-width="1"/>
+      <text x="${47+i*78}" y="195" fill="white" font-size="12" font-weight="700" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="212" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[0]}</text>
+    `).join('')}
+    <text x="16" y="250" fill="white" font-size="12" font-weight="700" font-family="system-ui">Itinerary</text>
+    <text x="192" y="250" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
+    ${[['Eiffel Tower','Day 1 · 09:00','Sightseeing'],['Louvre Museum','Day 1 · 14:00','Culture'],['Seine River Cruise','Day 2 · 18:00','Activity']].map((r,i)=>`
+      <rect x="12" y="${258+i*52}" width="220" height="44" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <rect x="20" y="${268+i*52}" width="26" height="26" rx="8" fill="${t.primary}22"/>
+      <text x="33" y="${285+i*52}" fill="${t.primary}" font-size="14" text-anchor="middle" font-family="system-ui">📍</text>
+      <text x="56" y="${270+i*52}" fill="white" font-size="11" font-weight="600" font-family="system-ui">${r[0]}</text>
+      <text x="56" y="${284+i*52}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${280+i*52}" fill="${t.primary}" font-size="10" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Lifestyle') return `
+    <rect x="12" y="90" width="220" height="70" rx="18" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <text x="28" y="112" fill="${t.primary}99" font-size="10" font-weight="600" letter-spacing="1" font-family="system-ui">TODAY</text>
+    <text x="28" y="143" fill="white" font-size="22" font-weight="800" font-family="system-ui">💇 Hair Salon · 2pm</text>
+    ${[['Streak','14 days','beauty'],['Saved','$240','this month'],['Booked','8 times','total']].map((s,i)=>`
+      <rect x="${12+i*78}" y="172" width="70" height="56" rx="14" fill="${t.primary}12" stroke="${t.primary}1e" stroke-width="1"/>
+      <text x="${47+i*78}" y="197" fill="white" font-size="13" font-weight="800" text-anchor="middle" font-family="system-ui">${s[1]}</text>
+      <text x="${47+i*78}" y="212" fill="${t.primary}70" font-size="9" text-anchor="middle" font-family="system-ui">${s[0]}</text>
+    `).join('')}
+    <text x="16" y="250" fill="white" font-size="12" font-weight="700" font-family="system-ui">Upcoming Bookings</text>
+    <text x="192" y="250" fill="${t.primary}" font-size="10" font-family="system-ui">Book</text>
+    ${[['Hair Salon · Lily S.','Today · 2:00 PM','Confirmed'],['Facial Treatment','Fri · 11:00 AM','Confirmed'],['Nail Studio · Mia L.','Sat · 3:00 PM','Pending']].map((r,i)=>`
+      <rect x="12" y="${258+i*52}" width="220" height="44" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <rect x="20" y="${268+i*52}" width="26" height="26" rx="8" fill="${t.primary}22"/>
+      <text x="33" y="${285+i*52}" fill="${t.primary}" font-size="14" text-anchor="middle" font-family="system-ui">✂</text>
+      <text x="56" y="${270+i*52}" fill="white" font-size="11" font-weight="600" font-family="system-ui">${r[0]}</text>
+      <text x="56" y="${284+i*52}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${280+i*52}" fill="${t.primary}" font-size="10" text-anchor="end" font-family="system-ui">${r[2]}</text>
+    `).join('')}
+  `
+
+  if (cat === 'Music') return `
+    <rect x="12" y="90" width="220" height="120" rx="20" fill="url(#cardG)" stroke="${t.primary}25" stroke-width="1"/>
+    <rect x="20" y="98" width="66" height="66" rx="16" fill="${t.primary}30"/>
+    ${[0,1,2,3].map(i=>`<rect x="${28+i*16}" y="${108+Math.abs(i-1.5)*8}" width="10" height="${48-Math.abs(i-1.5)*16}" rx="3" fill="${t.primary}${60+i*15}"/>`).join('')}
+    <text x="96" y="118" fill="${t.primary}80" font-size="9" font-weight="600" letter-spacing="1" font-family="system-ui">NOW PLAYING</text>
+    <text x="96" y="138" fill="white" font-size="14" font-weight="800" font-family="system-ui">Electric Sunrise</text>
+    <text x="96" y="154" fill="${t.primary}70" font-size="11" font-family="system-ui">Neon Collective</text>
+    <rect x="20" y="172" width="204" height="4" rx="2" fill="white" opacity="0.1"/>
+    <rect x="20" y="172" width="122" height="4" rx="2" fill="${t.primary}"/>
+    <circle cx="142" cy="174" r="6" fill="${t.primary}"/>
+    ${[['⏮',''],['⏸',''],['⏭',''],['🔀',''],['❤','']].map((b,i)=>`
+      <text x="${28+i*48}" y="200" fill="white" opacity="${i===1?1:0.35}" font-size="18" font-family="system-ui">${b[0]}</text>
+    `).join('')}
+    <text x="16" y="226" fill="white" font-size="12" font-weight="700" font-family="system-ui">Up Next</text>
+    ${[['Dark Matter','Synth Wave · 4:15'],['Neon Pulse','Electronic · 2:58'],['Midnight Drive','Chill · 5:30']].map((r,i)=>`
+      <rect x="12" y="${234+i*52}" width="220" height="44" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
+      <rect x="20" y="${244+i*52}" width="26" height="26" rx="8" fill="${t.primary}22"/>
+      ${[0,1,2].map(j=>`<rect x="${26+j*7}" y="${252+i*52}" width="5" height="${8+j*6}" rx="2" fill="${t.primary}${50+j*20}"/>`).join('')}
+      <text x="56" y="${252+i*52}" fill="white" font-size="11" font-weight="600" font-family="system-ui">${r[0]}</text>
+      <text x="56" y="${266+i*52}" fill="${t.primary}70" font-size="10" font-family="system-ui">${r[1]}</text>
+      <text x="222" y="${260+i*52}" fill="${t.primary}" font-size="10" text-anchor="end" font-family="system-ui">▶</text>
+    `).join('')}
+  `
+
+  if (cat === 'News') return `
+    ${['All','Tech','Biz','Sport'].map((c,i)=>`
+      <rect x="${12+i*58}" y="88" width="52" height="22" rx="11" fill="${i===0?t.primary:'white'}" opacity="${i===0?1:0.07}"/>
+      <text x="${38+i*58}" y="103" fill="${i===0?'white':'white'}" opacity="${i===0?1:0.35}" font-size="11" font-weight="${i===0?700:400}" text-anchor="middle" font-family="system-ui">${c}</text>
+    `).join('')}
+    <rect x="12" y="118" width="220" height="108" rx="16" fill="${t.primary}14" stroke="${t.primary}1c" stroke-width="1"/>
+    <rect x="20" y="126" width="204" height="58" rx="10" fill="${t.primary}20"/>
+    ${[0,1,2,3,4,5].map(i=>`<rect x="${26+i*34}" y="132" width="26" height="46" rx="4" fill="${t.primary}${14+i*6}"/>`).join('')}
+    <rect x="20" y="188" width="54" height="14" rx="7" fill="${t.primary}28"/>
+    <text x="47" y="199" fill="${t.primary}" font-size="9" font-weight="600" text-anchor="middle" font-family="system-ui">TOP STORY</text>
+    <text x="82" y="199" fill="white" font-size="11" font-weight="600" font-family="system-ui">AI Reshapes the Industry</text>
+    <text x="16" y="246" fill="white" font-size="12" font-weight="700" font-family="system-ui">Latest</text>
+    <text x="192" y="246" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
+    ${[['Tech Giants Report Record Q1','Business · 5 min'],['New Framework Tops Rankings','Dev · 3 min'],['Startup Raises $50M Series B','Startup · 4 min']].map((a,i)=>`
+      <rect x="12" y="${254+i*50}" width="220" height="42" rx="12" fill="white" opacity="0.04"/>
+      <rect x="18" y="${262+i*50}" width="28" height="26" rx="8" fill="${t.primary}18"/>
+      ${[0,1,2].map(j=>`<rect x="${22}" y="${267+j*6+i*50}" width="${18-j*4}" height="4" rx="2" fill="${t.primary}${40+j*15}"/>`).join('')}
+      <text x="56" y="${272+i*50}" fill="white" font-size="11" font-weight="600" font-family="system-ui">${a[0]}</text>
+      <text x="56" y="${286+i*50}" fill="${t.primary}70" font-size="10" font-family="system-ui">${a[1]}</text>
+    `).join('')}
+  `
+
+  // Default (Utility style)
+  return `
+    <text x="16" y="100" fill="white" font-size="12" font-weight="700" font-family="system-ui">Overview</text>
+    <text x="16" y="182" fill="white" font-size="12" font-weight="700" font-family="system-ui">Activity</text>
+    <text x="185" y="182" fill="${t.primary}70" font-size="10" font-family="system-ui">This week</text>
+    ${bars(14, 192, barVals, t.primary, 12, 46)}
+  `
 }
+
+const screen0 = (p, t) => phone(t, `
+  ${statusBar()}
+  <rect y="28" width="244" height="58" fill="#00000035"/>
+  <text x="16" y="56" fill="white" font-size="16" font-weight="800" font-family="system-ui">${p.title}</text>
+  <text x="16" y="74" fill="${t.primary}90" font-size="11" font-family="system-ui">Welcome back!</text>
+  <circle cx="220" cy="55" r="16" fill="${t.primary}20"/>
+  <circle cx="220" cy="50" r="6" fill="${t.primary}50"/>
+  <path d="M208 68 a12 7 0 0 1 24 0" fill="${t.primary}35"/>
+  ${dashboardContent(p, t)}
+  ${bottomNav(t.primary)}
+`)
 
 // ─── Screen 1: Category-specific feature ─────────────────────────────────────
 const featureContent = (p, t) => {
