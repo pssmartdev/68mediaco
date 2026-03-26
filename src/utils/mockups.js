@@ -114,7 +114,7 @@ const dashboardContent = (p, t) => {
     ${bars(14, 215, barVals, t.primary, 12, 46)}
     <text x="16" y="290" fill="white" font-size="12" font-weight="700" font-family="system-ui">Recent Transactions</text>
     <text x="192" y="290" fill="${t.primary}" font-size="10" font-family="system-ui">See all</text>
-    ${[['Grocery Store','Food & Drink','-$42.50'],['Netflix','Subscription','-$15.99'],['Salary','Income','+$3,200']].map((r,i)=>`
+    ${[['Grocery Store','Food &amp; Drink','-$42.50'],['Netflix','Subscription','-$15.99'],['Salary','Income','+$3,200']].map((r,i)=>`
       <rect x="12" y="${298+i*50}" width="220" height="42" rx="12" fill="${t.primary}0a" stroke="${t.primary}14" stroke-width="1"/>
       <rect x="20" y="${308+i*50}" width="24" height="24" rx="8" fill="${t.primary}22"/>
       <text x="32" y="${324+i*50}" fill="${t.primary}" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui">$</text>
